@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48"/>
+      <stop offset="50%" stop-color="#be123c"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  <!-- Siren / Flame Icon -->
+  <path d="M256 90 C 270 90, 370 210, 370 330 C 370 395, 318 440, 256 440 C 194 440, 142 395, 142 330 C 142 210, 242 90, 256 90 Z" fill="#ffffff" opacity="0.95"/>
+  <path d="M256 160 C 265 160, 320 250, 320 320 C 320 355, 290 380, 256 380 C 222 380, 192 355, 192 320 C 192 250, 247 160, 256 160 Z" fill="#e11d48"/>
+  <text x="256" y="480" font-family="sans-serif" font-weight="900" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="4">CHAKAM!</text>
+</svg>
