@@ -4,10 +4,13 @@ import { X, Award, BarChart3, Home, BookOpen, Scissors, Stethoscope, Users, Chec
 export default function MonthlyDashboardModal({ isOpen, onClose, state, score }) {
   if (!isOpen) return null;
 
-  const totalSpent = state.me.budget.categories.reduce((acc, c) => acc + c.spent, 0);
-  const budgetRemaining = Math.max(0, 50000 - totalSpent);
-  const nightsHome = state.me.apartment.nightsAtHomeCurrent;
-  const targetHome = state.me.apartment.targetNightsAtHome;
+  const budget = state?.budget || state?.me?.budget || { categories: [] };
+  const categories = budget.categories || [];
+  const totalSpent = categories.reduce((acc, c) => acc + (c.spent || 0), 0);
+  const monthlyLimit = budget.monthlyLimit || 50000;
+  const budgetRemaining = Math.max(0, monthlyLimit - totalSpent);
+  const nightsHome = state?.me?.apartment?.nightsAtHomeCurrent || 0;
+  const targetHome = state?.me?.apartment?.targetNightsAtHome || 20;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in">
@@ -34,7 +37,7 @@ export default function MonthlyDashboardModal({ isOpen, onClose, state, score })
           <div className="p-4 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 border border-neutral-800 rounded-xl flex items-center justify-between">
             <div>
               <p className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">Overall Score</p>
-              <h3 className="text-3xl font-black text-white mt-0.5">{score.total}%</h3>
+              <h3 className="text-3xl font-black text-white mt-0.5">{score?.total ?? 100}%</h3>
               <p className="text-[11px] text-emerald-400 font-semibold">Strict Standard: Passing Grade</p>
             </div>
             <div className="text-4xl">👑</div>
@@ -86,7 +89,7 @@ export default function MonthlyDashboardModal({ isOpen, onClose, state, score })
               Badges & Milestones:
             </span>
             <div className="space-y-1.5">
-              {state.badges.map((b) => (
+              {(state?.badges || []).map((b) => (
                 <div key={b.id} className="p-2 bg-neutral-900 rounded-lg flex items-center gap-2.5 text-xs">
                   <span className="text-xl">{b.icon}</span>
                   <div>

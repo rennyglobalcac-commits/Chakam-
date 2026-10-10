@@ -170,8 +170,8 @@ export default function PerformanceChart({ metrics }) {
       </div>
 
       {/* Recharts Visual Canvas */}
-      <div className="h-56 w-full pt-1">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-56 w-full pt-1 min-h-[224px]">
+        <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={200}>
           {chartType === 'BAR' ? (
             <BarChart 
               data={chartData} 

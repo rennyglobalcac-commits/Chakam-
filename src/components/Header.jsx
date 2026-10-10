@@ -87,7 +87,7 @@ export default function Header({
               </h1>
             </div>
             <p className="text-[11px] text-neutral-400 font-medium truncate max-w-[190px]">
-              {user.name} • {user.role.split('&')[0]}
+              {user?.name || 'Adaeze'} • {((user?.role || 'Nurse & Designer')).split('&')[0]}
             </p>
           </div>
         </div>

@@ -66,7 +66,7 @@ export default function ConsequenceTimerWidget({
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [timerState?.active, isRunning, remainingSec]);
+  }, [timerState?.active, isRunning]);
 
   const formatTime = (totalSeconds) => {
     const mins = Math.floor(totalSeconds / 60);

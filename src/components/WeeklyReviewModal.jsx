@@ -24,8 +24,10 @@ export default function WeeklyReviewModal({
     setInvestedRoles(prev => ({ ...prev, [role]: !prev[role] }));
   };
 
-  const completedCount = state.tasks.filter(t => t.done).length;
-  const totalCount = state.tasks.length;
+  const currentScore = accountabilityScore || { total: 100 };
+  const tasks = state?.tasks || [];
+  const completedCount = tasks.filter(t => t.done).length;
+  const totalCount = tasks.length;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in">
@@ -52,7 +54,7 @@ export default function WeeklyReviewModal({
             <div className="p-3 bg-neutral-950 rounded-xl border border-neutral-800 space-y-2 text-xs">
               <div className="flex justify-between items-center">
                 <span className="text-neutral-400">Weekly Score:</span>
-                <span className="text-lg font-black text-emerald-400">{accountabilityScore.total}%</span>
+                <span className="text-lg font-black text-emerald-400">{currentScore.total}%</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-neutral-400">Tasks Completed:</span>
@@ -60,7 +62,7 @@ export default function WeeklyReviewModal({
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-neutral-400">Strikes / Punishments:</span>
-                <span className="font-bold text-red-400">{state.user.strikeCount} registered</span>
+                <span className="font-bold text-red-400">{state?.user?.strikeCount ?? 0} registered</span>
               </div>
             </div>
 

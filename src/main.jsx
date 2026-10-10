@@ -29,16 +29,21 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-center p-6 text-center">
-          <div className="w-12 h-12 rounded-full bg-red-950/80 border border-red-800 text-red-400 flex items-center justify-center mb-4 text-2xl">
+          <div className="w-14 h-14 rounded-2xl bg-red-950/80 border border-red-800 text-red-400 flex items-center justify-center mb-4 text-3xl shadow-xl shadow-red-950/50">
             ⚠️
           </div>
           <h2 className="text-xl font-black text-white mb-2">Display Recovery</h2>
-          <p className="text-xs text-neutral-400 max-w-sm mb-4">
-            An issue prevented this view from rendering. Tap below to refresh and clear temporary cached state.
+          <p className="text-xs text-neutral-400 max-w-sm mb-3">
+            An issue prevented this view from rendering. Tap below to refresh with a clean slate.
           </p>
+          {this.state.error?.message && (
+            <p className="text-[11px] font-mono text-red-400/90 bg-red-950/40 border border-red-900/60 px-3 py-2 rounded-lg max-w-xs mb-4 break-words">
+              {this.state.error.message}
+            </p>
+          )}
           <button
             onClick={this.handleReset}
-            className="py-2.5 px-5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-lg active:scale-95 transition-all"
+            className="py-2.5 px-6 bg-red-600 hover:bg-red-500 text-white font-black text-xs rounded-xl shadow-lg shadow-red-950/50 active:scale-95 transition-all"
           >
             Reset App State & Reload
           </button>

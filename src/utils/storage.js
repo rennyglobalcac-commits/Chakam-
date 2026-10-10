@@ -271,22 +271,22 @@ export function performDailyResetCheck(state) {
     taskHistory: [archivedDay, ...(state.taskHistory || [])],
     dailyPerformanceHistory: [performanceSnapshot, ...(state.dailyPerformanceHistory || [])],
     me: {
-      ...state.me,
+      ...(state?.me || {}),
       habits: resetHabits,
       apartment: {
-        ...state.me.apartment,
+        ...(state?.me?.apartment || {}),
         checklist: resetApartmentChecklist
       },
       reading: {
-        ...state.me.reading,
-        currentBook: {
+        ...(state?.me?.reading || {}),
+        currentBook: state?.me?.reading?.currentBook ? {
           ...state.me.reading.currentBook,
           pagesReadToday: 0
-        }
+        } : null
       }
     },
     nurse: {
-      ...state.nurse,
+      ...(state?.nurse || {}),
       studySessionsToday: 0,
       focusMinutesToday: 0
     }
@@ -350,7 +350,7 @@ export function clearAllDemoData(state) {
       measurements: [],
       ideas: []
     },
-    friends: state.friends && state.friends.length > 0 ? state.friends : [],
+    friends: state?.friends && state.friends.length > 0 ? state.friends : CLEAN_EMPTY_STATE.friends,
     budget: {
       monthlyLimit: 50000,
       categories: CLEAN_EMPTY_STATE.budget.categories.map(c => ({ ...c, spent: 0 })),

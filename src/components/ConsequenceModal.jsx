@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, AlertOctagon, Skull, Camera, Share2, DollarSign, Video, 
   PhoneForwarded, RotateCcw, Check, Copy, Flame, HelpCircle, Upload, Play, Square

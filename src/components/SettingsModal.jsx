@@ -24,11 +24,11 @@ export default function SettingsModal({
   const [friendRole, setFriendRole] = useState('Friend');
 
   // User Profile Form State
-  const [userName, setUserName] = useState(state.user.name);
-  const [userRole, setUserRole] = useState(state.user.role);
-  const [accountabilityPartner, setAccountabilityPartner] = useState(state.user.accountabilityPartner);
-  const [partnerPhone, setPartnerPhone] = useState(state.user.partnerPhone || '');
-  const [partnerBank, setPartnerBank] = useState(state.user.partnerBank || '');
+  const [userName, setUserName] = useState(state?.user?.name || 'Adaeze');
+  const [userRole, setUserRole] = useState(state?.user?.role || 'Nurse & Fashion Designer');
+  const [accountabilityPartner, setAccountabilityPartner] = useState(state?.user?.accountabilityPartner || 'Ada');
+  const [partnerPhone, setPartnerPhone] = useState(state?.user?.partnerPhone || '');
+  const [partnerBank, setPartnerBank] = useState(state?.user?.partnerBank || '');
 
   // Audio Recording & Transcription State
   const [isRecording, setIsRecording] = useState(false);
@@ -42,7 +42,8 @@ export default function SettingsModal({
   // Load selected friend into form
   useEffect(() => {
     if (selectedFriendId) {
-      const f = state.friends.find(item => item.id === selectedFriendId);
+      const friendsList = state?.friends || [];
+      const f = friendsList.find(item => item.id === selectedFriendId);
       if (f) {
         setFriendName(f.name || '');
         setFriendPhone(f.phone || '');
@@ -52,7 +53,7 @@ export default function SettingsModal({
         setFriendRole(f.role || (f.id === 'f1' ? 'Accountability Partner' : 'Friend'));
       }
     }
-  }, [selectedFriendId, state.friends]);
+  }, [selectedFriendId, state?.friends]);
 
   // Clean up speech recognition
   useEffect(() => {
@@ -156,7 +157,8 @@ export default function SettingsModal({
     e.preventDefault();
     if (!friendName.trim()) return;
 
-    const updated = state.friends.map(f => {
+    const friendsList = state?.friends || [];
+    const updated = friendsList.map(f => {
       if (f.id === selectedFriendId) {
         return {
           ...f,
@@ -190,17 +192,19 @@ export default function SettingsModal({
       role: 'Friend'
     };
 
-    onUpdateFriends([newFriend, ...state.friends]);
+    const currentFriends = state?.friends || [];
+    onUpdateFriends([newFriend, ...currentFriends]);
     setSelectedFriendId(newId);
     sounds.playSuccess();
   };
 
   const handleDeleteFriend = (id) => {
-    if (state.friends.length <= 1) {
+    const currentFriends = state?.friends || [];
+    if (currentFriends.length <= 1) {
       alert("You need at least one friend/accountability partner!");
       return;
     }
-    const updated = state.friends.filter(f => f.id !== id);
+    const updated = currentFriends.filter(f => f.id !== id);
     onUpdateFriends(updated);
     setSelectedFriendId(updated[0]?.id || null);
     sounds.playStrike();
@@ -292,7 +296,7 @@ export default function SettingsModal({
             </div>
 
             <div className="flex gap-1.5 overflow-x-auto pb-1">
-              {state.friends.map((f) => (
+              {(state?.friends || []).map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setSelectedFriendId(f.id)}
@@ -513,7 +517,7 @@ export default function SettingsModal({
                 onChange={(e) => setAccountabilityPartner(e.target.value)}
                 className="w-full bg-neutral-900 border border-neutral-800 rounded-lg p-2.5 text-xs text-white focus:outline-none"
               >
-                {state.friends.map((f) => (
+                {(state?.friends || []).map((f) => (
                   <option key={f.id} value={f.name}>{f.name} ({f.role || 'Friend'})</option>
                 ))}
               </select>
