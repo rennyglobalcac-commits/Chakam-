@@ -408,8 +408,22 @@ export function loadState() {
     const merged = {
       ...CLEAN_EMPTY_STATE,
       ...parsed,
-      consequenceTimer: parsed.consequenceTimer || CLEAN_EMPTY_STATE.consequenceTimer,
-      budget: parsed.budget || parsed.me?.budget || CLEAN_EMPTY_STATE.budget,
+      user: {
+        ...CLEAN_EMPTY_STATE.user,
+        ...(parsed.user || {})
+      },
+      consequenceTimer: {
+        ...CLEAN_EMPTY_STATE.consequenceTimer,
+        ...(parsed.consequenceTimer || {})
+      },
+      budget: {
+        ...CLEAN_EMPTY_STATE.budget,
+        ...(parsed.budget || parsed.me?.budget || {})
+      },
+      designer: {
+        ...CLEAN_EMPTY_STATE.designer,
+        ...(parsed.designer || {})
+      },
       nurse: {
         ...CLEAN_EMPTY_STATE.nurse,
         ...(parsed.nurse || {}),
@@ -417,7 +431,15 @@ export function loadState() {
       },
       me: {
         ...CLEAN_EMPTY_STATE.me,
-        ...(parsed.me || {})
+        ...(parsed.me || {}),
+        apartment: {
+          ...CLEAN_EMPTY_STATE.me.apartment,
+          ...(parsed.me?.apartment || {})
+        },
+        reading: {
+          ...CLEAN_EMPTY_STATE.me.reading,
+          ...(parsed.me?.reading || {})
+        }
       }
     };
 

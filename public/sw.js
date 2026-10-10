@@ -1,17 +1,14 @@
-const CACHE_NAME = 'chakam-cache-v1';
-
-self.addEventListener('install', (event) => {
+// Self-destructing service worker to clear any old registrations
+self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
-});
-
-self.addEventListener('fetch', (event) => {
-  // Let Vite dev requests and API requests pass through cleanly
-  if (event.request.method !== 'GET') return;
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+  event.waitUntil(
+    self.registration.unregister().then(() => {
+      return self.clients.matchAll();
+    }).then((clients) => {
+      clients.forEach(client => client.navigate(client.url));
+    })
   );
 });
